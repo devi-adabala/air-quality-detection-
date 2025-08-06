@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=devic-width, initial-scale=1.0">
+    <title>🌎 Air Pollution Monitoring System 🌤️</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #89f7fe, #66a6ff);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .dashboard-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+        }
+
+        .dashboard-box h2 {
+            font-size: 24px;
+            color: #00796b;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: #ffeb3b;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+            font-size: 18px;
+        }
+
+        .card h3 {
+            color: #ff5722;
+        }
+
+        .check-btn {
+            margin-top: 20px;
+            background: #ff9800;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+            border: none;
+            font-size: 16px;
+        }
+
+        .check-btn:hover {
+            background: #e65100;
+        }
+
+        .emoji {
+            font-size: 24px;
+            position: absolute;
+            top: -20px;
+            right: 20px;
+        }
+
+        .warning {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: red;
+            color: white;
+            font-weight: bold;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container" id="dashboard">
+        <div class="dashboard-box">
+            <span class="emoji">☁️🌍</span>
+            <h2>Air Quality 🌱</h2>
+            <input type="text" id="locationInput" placeholder="📍 Enter location..." style="padding: 10px; width: 60%; border-radius: 6px; border: 1px solid #00796b;">
+            <button class="check-btn" onclick="fetchPollutionData()">🌬️ Check Air</button>
+            <div class="card-container">
+                <div class="card"><h3>NO2 🌫️</h3><p id="no2">-</p></div>
+                <div class="card"><h3>SO2 🌪️</h3><p id="so2">-</p></div>
+                <div class="card"><h3>CO 💨</h3><p id="co">-</p></div>
+                <div class="card"><h3>Ozone ☀️</h3><p id="ozone">-</p></div>
+                <div class="card"><h3>Wind ☁️</h3><p id="wind">-</p></div>
+            </div>
+            <div id="warning" class="warning">⚠️ Poor Air Quality! Take precautions! ⚠️</div>
+        </div>
+    </div>
+
+    <script>
+        function fetchPollutionData() {
+            const location = document.getElementById('locationInput').value.trim();
+            if (!location) {
+                alert('Please enter a location.');
+                return;
+            }
+            
+            const no2 = (Math.random() * 200).toFixed(2); 
+            const so2 = (Math.random() * 100).toFixed(2); 
+            const co = (Math.random() * 100).toFixed(2);
+            const ozone = (Math.random() * 100).toFixed(2);
+            const wind = (Math.random() * 20).toFixed(2) + ' km/h';
+
+            document.getElementById('no2').innerText = no2 + ' ppb';
+            document.getElementById('so2').innerText = so2 + ' ppb';
+            document.getElementById('co').innerText = co + ' ppm';
+            document.getElementById('ozone').innerText = ozone + ' ppb';
+            document.getElementById('wind').innerText = wind;
+
+            const warningBox = document.getElementById('warning');
+            if (no2 > 100 || so2 > 75 || co > 50 || ozone > 60) {
+                warningBox.style.display = 'block';
+            } else {
+                warningBox.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
